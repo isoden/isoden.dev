@@ -1,0 +1,10 @@
+.logo {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 4rem;
+  color: #444;
+  @apply font-bold uppercase;
+}
+
+.logo-dot {
+  @apply text-primary;
+}

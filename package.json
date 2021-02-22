@@ -1,0 +1,45 @@
+{
+  "name": "isoden.dev",
+  "private": true,
+  "scripts": {
+    "start": "next dev",
+    "build": "next build",
+    "export": "next export",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@mapbox/rehype-prism": "^0.5.0",
+    "date-fns": "^2.16.1",
+    "gray-matter": "^4.0.2",
+    "js-yaml": "^3.14.0",
+    "prismjs": "^1.22.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-schemaorg": "^1.2.0",
+    "schema-dts": "^0.7.1"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^5.4.0",
+    "@types/node": "^14.14.6",
+    "@types/react": "^16.9.55",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-react": "^7.12.4",
+    "husky": "^3.0.5",
+    "next": "^10.0.7",
+    "next-mdx-enhanced": "^4.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "^1.15.3",
+    "pretty-quick": "^1.10.0",
+    "tailwindcss": "^1.9.6",
+    "typescript": "^3.3.3333",
+    "yaml-loader": "^0.6.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}
