@@ -8,12 +8,12 @@ export const Layout = ({ children }) => {
   }
 
   return (
-    <div className="container">
+    <div className="container mx-auto">
       <Head>
         <title>{meta.title}</title>
         <meta name="theme-color" content="#c36" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700&display=swap&text=ISODEN.DEV"
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap&text=ISODENDEV"
           rel="stylesheet"
         />
       </Head>

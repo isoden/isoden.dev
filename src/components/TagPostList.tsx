@@ -14,7 +14,7 @@ type Props = {
 }
 export default function TagPostList({ posts, tag, pagination }: Props) {
   return (
-    <div className="container">
+    <div className="container mx-auto">
       <h1>
         All posts / <span>{tag.name}</span>
       </h1>
@@ -30,37 +30,6 @@ export default function TagPostList({ posts, tag, pagination }: Props) {
         pages={pagination.pages}
         link={page => (page === 1 ? '/posts/tags/' + tag.slug : `/posts/tags/${tag.slug}/${page}`)}
       />
-      <style jsx>
-        {`
-          .container {
-            margin: 0 auto;
-            max-width: 1200px;
-            width: 100%;
-            padding: 0 1.5rem;
-            display: flex;
-            flex-direction: column;
-          }
-          h1 {
-            margin: 0 0 2rem;
-            padding: 0;
-            font-weight: 100;
-            color: #9b9b9b;
-          }
-          h1 span {
-            font-weight: bold;
-            color: #222;
-          }
-          ul {
-            margin: 0;
-            padding: 0;
-            flex: 1 0 auto;
-          }
-          li {
-            list-style: none;
-            margin-bottom: 1.5rem;
-          }
-        `}
-      </style>
     </div>
   )
 }

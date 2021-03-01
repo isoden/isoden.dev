@@ -5,3 +5,5 @@ tags:
     name: misc
   - slug: react
     name: React
+  - slug: service worker
+    name: Service Worker

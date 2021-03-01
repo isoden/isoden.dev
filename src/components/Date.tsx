@@ -6,8 +6,8 @@ type Props = {
 
 export default function Date({ date }: Props) {
   return (
-    <time className="inline-block text-sm mt-4 mr-2" dateTime={formatISO(date)}>
-      <span>{format(date, 'yyyy年M月d日')}</span>
+    <time className="inline-block text-sm" dateTime={formatISO(date)}>
+      {format(date, 'yyyy年M月d日')}
     </time>
   )
 }
