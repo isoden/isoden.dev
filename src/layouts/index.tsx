@@ -6,7 +6,6 @@ import JsonLdMeta from '../components/meta/JsonLdMeta'
 import OpenGraphMeta from '../components/meta/OpenGraphMeta'
 import TwitterCardMeta from '../components/meta/TwitterCardMeta'
 import Tags from '../components/Tags'
-import { getAuthor } from '../lib/authors'
 import { getTag } from '../lib/tags'
 
 type Props = React.PropsWithChildren<{
@@ -22,7 +21,6 @@ type Props = React.PropsWithChildren<{
 
 export default function Index({ frontMatter: { title, date, slug, author, tags }, description, children }: Props) {
   const keywords = tags.map(it => getTag(it).name)
-  const authorName = getAuthor(author).name
 
   return (
     <Layout>
@@ -34,7 +32,7 @@ export default function Index({ frontMatter: { title, date, slug, author, tags }
         title={title}
         keywords={keywords}
         date={date}
-        author={authorName}
+        author={author}
         description={description}
       />
 
