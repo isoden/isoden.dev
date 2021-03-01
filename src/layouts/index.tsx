@@ -1,5 +1,4 @@
 import React from 'react'
-// import styles from '../../public/styles/content.module.css'
 import Date from '../components/Date'
 import { Layout } from '../components/Layout/Layout'
 import BasicMeta from '../components/meta/BasicMeta'
@@ -41,12 +40,12 @@ export default function Index({ frontMatter: { title, date, slug, author, tags }
 
       <article>
         <header>
-          <h1 className="text-2xl font-bold">{title}</h1>
+          <h1>{title}</h1>
 
           <Date date={date} />
           <Tags tags={tags} />
         </header>
-        <div className={'styles.content'}>{children}</div>
+        <div>{children}</div>
 
         <a href={`https://github.com/isoden/isoden.dev/edit/master/src/pages/posts/${slug}.mdx`}>
           Send pull request via GitHub.

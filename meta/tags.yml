@@ -5,9 +5,3 @@ tags:
     name: misc
   - slug: react
     name: React
-  - slug: license
-    name: license
-  - slug: mdx
-    name: mdx
-  - slug: markdown
-    name: markdown

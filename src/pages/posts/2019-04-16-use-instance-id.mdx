@@ -11,7 +11,7 @@ tags:
 React v16.8+ のお話。
 hooks を利用して、 Function Component のインスタンスごとに一意な値を割り当てる方法。
 
-```tsx:title=useInstanceId.tsx
+```tsx
 import React from 'react'
 
 let counter = 0
@@ -27,7 +27,7 @@ const useInstanceId = (): number => {
 }
 ```
 
-```tsx:title=DemoComponent.tsx
+```tsx
 import React from 'react'
 import { useInstanceId } from './useInstanceId'
 
@@ -66,27 +66,3 @@ const ExamplePanel = (props: { children: React.ReactNode }) => {
 ```
 
 実装はいろいろ省略しているが、 汎用的なコンポーネント内で `id` 属性を使う場合は値の重複を避けたい。 そんなときに使える。
-
-## ちなみに
-
-以下の書き方でも一意な値を得ることはできるが、 これだと `render` が発生する度に `id` が変わってしまう。
-それにより本来不要な属性の値を変更する処理が走るので(微々たるものだとは思うが)パフォーマンス的にイマイチ。
-
-```tsx
-import React from 'react'
-
-let counter = 0
-
-const ExamplePanel = (props: { children: React.ReactNode }) => {
-  const id = (counter += 1)
-
-  return (
-    <>
-      <button aria-controls={'demo-pane-' + id}>トグルする</button>
-      <div id={'demo-pane-' + id}>{props.children}</div>
-    </>
-  )
-}
-```
-
-おわり。

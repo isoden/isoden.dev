@@ -1,4 +1,0 @@
-.container {
-  @apply border-t-8 border-primary flex justify-center items-center;
-  min-height: 100vh;
-}

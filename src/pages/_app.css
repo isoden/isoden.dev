@@ -1,0 +1,38 @@
+:root {
+  /* Colors */
+  --color-primary: #c36;
+  --color-text: #444;
+
+  /* Font sizes */
+  --font-size-lg: 3rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  border-top: 8px solid var(--color-primary);
+  color: var(--color-text);
+}
+
+.container {
+  max-width: 40em;
+  margin: 0 auto;
+}
+
+.logo {
+  font: bold var(--font-size-lg) / 1 'Open Sans Condensed', sans-serif;
+  text-transform: uppercase;
+}
+
+.logo::after {
+  content: '👨‍💻';
+}
+
+.logo-dot {
+  color: var(--color-primary);
+}

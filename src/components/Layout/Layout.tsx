@@ -1,7 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
 import { SiteHeader } from '../SiteHeader/SiteHeader'
-import css from './Layout.module.css'
 
 export const Layout = ({ children }) => {
   const meta = {
@@ -9,7 +8,7 @@ export const Layout = ({ children }) => {
   }
 
   return (
-    <div className={css.container}>
+    <div className="container">
       <Head>
         <title>{meta.title}</title>
         <meta name="theme-color" content="#c36" />

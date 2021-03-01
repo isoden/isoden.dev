@@ -1,7 +1,0 @@
-.container {
-  @apply pt-6 border-t text-sm text-right mt-6 mb-6;
-}
-
-.container small {
-  font-size: inherit;
-}
