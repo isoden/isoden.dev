@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import { SiteHeader } from '../SiteHeader/SiteHeader'
+import { SiteHeader } from '@/components/SiteHeader/SiteHeader'
 
 export const Layout = ({ children }) => {
   const meta = {

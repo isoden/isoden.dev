@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import Link from 'next/link'
-import { getTag } from '../lib/tags'
+import { getTag } from '@/lib/tags'
 
 type Props = {
   tags: string[]

@@ -1,4 +1,11 @@
-import tags from '../../meta/tags.yml'
+const tags = {
+  tags: [
+    { slug: 'javascript', name: 'JavaScript' },
+    { slug: 'misc', name: 'misc' },
+    { slug: 'react', name: 'React' },
+    { slug: 'service worker', name: 'Service Worker' },
+  ],
+}
 
 export type TagContent = {
   readonly slug: string

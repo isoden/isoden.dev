@@ -9,5 +9,4 @@ static/admin/*.bundle.*
 yarn-error.log
 
 /.next
-/.mdx-data
 /out

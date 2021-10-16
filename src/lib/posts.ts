@@ -1,15 +1,18 @@
-import { promises as fs } from 'fs'
-import matter from 'gray-matter'
+import fs from 'fs/promises'
 import path from 'path'
-import yaml from 'js-yaml'
 
-const postsDirectory = path.join(process.cwd(), 'src/pages/posts')
+import matter from 'gray-matter'
+import yaml from 'js-yaml'
+import { markdown } from './markdown'
+
+const postsDirectory = path.join(process.cwd(), 'content/posts')
 
 export type PostContent = {
   readonly date: string
   readonly title: string
   readonly slug: string
   readonly tags?: string[]
+  readonly content: string
 }
 
 let postCache: PostContent[]
@@ -23,32 +26,35 @@ async function fetchPostContent(): Promise<PostContent[]> {
   const filenames = await fs.readdir(postsDirectory)
   const allPostsData = await Promise.all(
     filenames
-      .filter(it => it.endsWith('.mdx'))
+      .filter(it => it.endsWith('.md'))
       .map(async filename => {
         // Read markdown file as string
         const fileContents = await fs.readFile(path.join(postsDirectory, filename), 'utf8')
 
         // Use gray-matter to parse the post metadata section
-        const matterResult = matter(fileContents, {
+        const { content, data } = matter(fileContents, {
           engines: {
-            yaml: s => yaml.safeLoad(s, { schema: yaml.JSON_SCHEMA }),
+            yaml: s => yaml.load(s, { schema: yaml.JSON_SCHEMA }),
           },
         })
 
-        const matterData = matterResult.data as {
+        const matterData = data as {
           date: string
           title: string
           tags: string[]
           slug: string
         }
-        const slug = filename.replace(/\.mdx$/, '')
+        const slug = filename.replace(/\.md$/, '')
 
         // Validate slug string
         if (matterData.slug !== slug) {
           throw new Error('slug field not match with the path of its content source')
         }
 
-        return matterData
+        return {
+          content: markdown(content),
+          ...matterData,
+        }
       }),
   )
 
@@ -64,6 +70,16 @@ async function fetchPostContent(): Promise<PostContent[]> {
   })
 
   return postCache
+}
+
+export async function getPost(slug: string): Promise<PostContent | undefined> {
+  const posts = await fetchPostContent()
+
+  return posts.find(post => post.slug === slug)
+}
+
+export async function listPostsAll(): Promise<PostContent[]> {
+  return await fetchPostContent()
 }
 
 export async function countPosts(tag?: string): Promise<number> {

@@ -2,11 +2,11 @@ import React from 'react'
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
 
-import BasicMeta from '../components/meta/BasicMeta'
-import OpenGraphMeta from '../components/meta/OpenGraphMeta'
-import TwitterCardMeta from '../components/meta/TwitterCardMeta'
-import { Layout } from '../components/Layout/Layout'
-import { listPostContent, PostContent } from '../lib/posts'
+import BasicMeta from '@/components/meta/BasicMeta'
+import OpenGraphMeta from '@/components/meta/OpenGraphMeta'
+import TwitterCardMeta from '@/components/meta/TwitterCardMeta'
+import { Layout } from '@/components/Layout/Layout'
+import { listPostContent, PostContent } from '@/lib/posts'
 
 type Props = {
   posts: PostContent[]
