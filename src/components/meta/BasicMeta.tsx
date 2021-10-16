@@ -9,7 +9,7 @@ type Props = {
   url: string
 }
 
-export default function BasicMeta({ title, description, keywords, author, url }: Props) {
+export function BasicMeta({ title, description, keywords, author, url }: Props) {
   return (
     <Head>
       <title>{title ? [title, config.site_title].join(' | ') : config.site_title}</title>

@@ -2,11 +2,11 @@ import React from 'react'
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
 
-import BasicMeta from '@/components/meta/BasicMeta'
-import OpenGraphMeta from '@/components/meta/OpenGraphMeta'
-import TwitterCardMeta from '@/components/meta/TwitterCardMeta'
+import { BasicMeta } from '@/components/meta/BasicMeta'
+import { OpenGraphMeta } from '@/components/meta/OpenGraphMeta'
+import { TwitterCardMeta } from '@/components/meta/TwitterCardMeta'
 import { Layout } from '@/components/Layout/Layout'
-import { listPostContent, PostContent } from '@/lib/posts'
+import { listPosts, PostContent } from '@/lib/posts'
 
 type Props = {
   posts: PostContent[]
@@ -41,7 +41,7 @@ export default function Index({ posts }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = await listPostContent(1, 5)
+  const posts = await listPosts({ page: 1, limit: 5 })
 
   return {
     props: {

@@ -1,8 +1,8 @@
 import React from 'react'
 import { PostContent } from '@/lib/posts'
 import { TagContent } from '@/lib/tags'
-import PostItem from './PostItem'
-import Pagination from './Pagination'
+import { PostItem } from '@/components/PostItem'
+import { Pagination } from '@/components/Pagination'
 
 type Props = {
   posts: PostContent[]
@@ -12,7 +12,7 @@ type Props = {
     pages: number
   }
 }
-export default function TagPostList({ posts, tag, pagination }: Props) {
+export function TagPostList({ posts, tag, pagination }: Props) {
   return (
     <div className="container mx-auto">
       <h1>

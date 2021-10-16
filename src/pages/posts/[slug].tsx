@@ -1,19 +1,19 @@
 import React from 'react'
-import Date from '@/components/Date'
-import { Layout } from '@/components/Layout/Layout'
-import BasicMeta from '@/components/meta/BasicMeta'
-import JsonLdMeta from '@/components/meta/JsonLdMeta'
-import OpenGraphMeta from '@/components/meta/OpenGraphMeta'
-import TwitterCardMeta from '@/components/meta/TwitterCardMeta'
-import Tags from '@/components/Tags'
-import { getTag } from '@/lib/tags'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { getPost, listPostsAll, PostContent } from '@/lib/posts'
 import { parseISO } from 'date-fns'
+import { FormatDate } from '@/components/FormatDate/FormatDate'
+import { Layout } from '@/components/Layout/Layout'
+import { BasicMeta } from '@/components/meta/BasicMeta'
+import { JsonLdMeta } from '@/components/meta/JsonLdMeta'
+import { OpenGraphMeta } from '@/components/meta/OpenGraphMeta'
+import { TwitterCardMeta } from '@/components/meta/TwitterCardMeta'
+import { Tags } from '@/components/Tags'
+import { getTag } from '@/lib/tags'
+import { getPost, listPosts, PostContent } from '@/lib/posts'
 
 type Props = PostContent
 
-export default function Index({ title, date, slug, tags, content }: Props) {
+export default function Index({ title, date, slug, tags = [], content }: Props) {
   const keywords = tags.map(it => getTag(it).name)
   const description = ''
 
@@ -35,7 +35,7 @@ export default function Index({ title, date, slug, tags, content }: Props) {
         <header>
           <h1>{title}</h1>
 
-          <Date date={parseISO(date)} />
+          <FormatDate date={parseISO(date)} />
           <Tags tags={tags} />
         </header>
         <div dangerouslySetInnerHTML={{ __html: content }} />
@@ -48,8 +48,8 @@ export default function Index({ title, date, slug, tags, content }: Props) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const post = await getPost(params.slug as string)
+export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+  const post = await getPost(params?.slug as string)
 
   return {
     props: {
@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await listPostsAll()
+  const posts = await listPosts()
 
   return {
     paths: posts.map(post => ({

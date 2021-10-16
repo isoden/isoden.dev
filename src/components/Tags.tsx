@@ -6,7 +6,7 @@ type Props = {
   tags: string[]
 }
 
-export default function Tags({ tags: tagSlugs }: Props) {
+export function Tags({ tags: tagSlugs }: Props) {
   const tags = useMemo(() => tagSlugs.map(getTag), tagSlugs)
 
   if (tags.length === 0) {

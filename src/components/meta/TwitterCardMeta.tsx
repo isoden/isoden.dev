@@ -7,7 +7,7 @@ type Props = {
   description?: string
 }
 
-export default function TwitterCardMeta({ url, title, description }: Props) {
+export function TwitterCardMeta({ url, title, description }: Props) {
   return (
     <Head>
       <meta property="twitter:card" content="summary_large_image" />

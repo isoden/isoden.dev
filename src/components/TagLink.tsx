@@ -5,7 +5,7 @@ type Props = {
   tag: TagContent
 }
 
-export default function Tag({ tag }: Props) {
+export function TagLink({ tag }: Props) {
   return (
     <Link href={`/posts/tags/${tag.slug}`}>
       <a>{'#' + tag.name}</a>

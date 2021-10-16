@@ -1,9 +1,9 @@
 import React from 'react'
 import { PostContent } from '@/lib/posts'
-import PostItem from './PostItem'
-import TagLink from './TagLink'
-import Pagination from './Pagination'
 import { TagContent } from '@/lib/tags'
+import { PostItem } from '@/components/PostItem'
+import { TagLink } from '@/components/TagLink'
+import { Pagination } from '@/components/Pagination'
 
 type Props = {
   posts: PostContent[]
@@ -14,7 +14,7 @@ type Props = {
   }
 }
 
-export default function PostList({ posts, tags, pagination }: Props) {
+export function PostList({ posts, tags, pagination }: Props) {
   return (
     <div className="container mx-auto">
       <div>

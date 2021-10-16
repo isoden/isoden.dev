@@ -1,8 +1,8 @@
+import Head from 'next/head'
 import { BlogPosting } from 'schema-dts'
 import { jsonLdScriptProps } from 'react-schemaorg'
-import config from '@/config.json'
 import { formatISO } from 'date-fns'
-import Head from 'next/head'
+import config from '@/config.json'
 
 type Props = {
   url: string
@@ -14,7 +14,7 @@ type Props = {
   description?: string
 }
 
-export default function JsonLdMeta({ url, title, keywords, date, author, image, description }: Props) {
+export function JsonLdMeta({ url, title, keywords, date, author, image, description }: Props) {
   return (
     <Head>
       <script
@@ -23,7 +23,7 @@ export default function JsonLdMeta({ url, title, keywords, date, author, image, 
           '@type': 'BlogPosting',
           mainEntityOfPage: config.base_url + url,
           headline: title,
-          keywords: keywords ? undefined : keywords.join(','),
+          keywords: keywords?.join(','),
           datePublished: formatISO(date),
           author: author,
           image: image,

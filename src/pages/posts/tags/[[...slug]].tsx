@@ -1,11 +1,11 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { Layout } from '@/components/Layout/Layout'
-import BasicMeta from '@/components/meta/BasicMeta'
-import OpenGraphMeta from '@/components/meta/OpenGraphMeta'
-import TwitterCardMeta from '@/components/meta/TwitterCardMeta'
-import TagPostList from '@/components/TagPostList'
 import config from '@/config.json'
-import { countPosts, listPostContent, PostContent } from '@/lib/posts'
+import { Layout } from '@/components/Layout/Layout'
+import { BasicMeta } from '@/components/meta/BasicMeta'
+import { OpenGraphMeta } from '@/components/meta/OpenGraphMeta'
+import { TwitterCardMeta } from '@/components/meta/TwitterCardMeta'
+import { TagPostList } from '@/components/TagPostList'
+import { countPosts, listPosts, PostContent } from '@/lib/posts'
 import { getTag, listTags, TagContent } from '@/lib/tags'
 
 type Props = {
@@ -33,13 +33,17 @@ export default function Index({ posts, tag, pagination, page }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const queries = params.slug as string[]
+  const queries = params?.slug as string[]
   const [slug, page] = [queries[0], queries[1]]
-  const posts = await listPostContent(page ? parseInt(page as string) : 1, config.posts_per_page, slug)
+  const posts = await listPosts({
+    page: page ? parseInt(page as string, 10) : 1,
+    limit: config.posts_per_page,
+    tag: slug,
+  })
   const tag = getTag(slug)
   const pagination = {
-    current: page ? parseInt(page as string) : 1,
-    pages: Math.ceil((await countPosts(slug)) / config.posts_per_page),
+    current: page ? parseInt(page as string, 10) : 1,
+    pages: Math.ceil((await countPosts({ tag: slug })) / config.posts_per_page),
   }
   const props: {
     posts: PostContent[]
@@ -60,7 +64,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = (await Promise.all(
     listTags().map(async tag => {
-      const pages = Math.ceil((await countPosts(tag.slug)) / config.posts_per_page)
+      const pages = Math.ceil((await countPosts({ tag: tag.slug })) / config.posts_per_page)
 
       return Array.from(Array(pages).keys()).map(page =>
         page === 0

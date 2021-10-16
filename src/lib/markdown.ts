@@ -9,7 +9,8 @@ class CustomRenderer extends marked.Renderer {
   /**
    * override {@link https://github.com/markedjs/marked/blob/d571894d98465660adc86642358cade7266ca999/src/Renderer.js#L15-L39}
    */
-  code(...args) {
+  code(...args: any[]) {
+    // @ts-expect-error
     const rendered = super.code(...args)
 
     // add `language-` class to root <pre /> element

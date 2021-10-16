@@ -2,7 +2,7 @@
   "base_url": "https://isoden.dev",
   "site_title": "isoden.dev",
   "site_description": "",
-  "site_keywords": [],
+  "site_keywords": [{ "keyword": "" }],
   "posts_per_page": 1,
   "twitter_account": "@isoden_",
   "github_account": "isoden"

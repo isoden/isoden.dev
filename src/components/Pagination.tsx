@@ -7,7 +7,7 @@ type Props = {
   link: (page: number) => string
 }
 
-export default function Pagination({ current, pages, link }: Props) {
+export function Pagination({ current, pages, link }: Props) {
   const pagination = generatePagination(current, pages)
 
   return (
@@ -17,8 +17,8 @@ export default function Pagination({ current, pages, link }: Props) {
           {it.excerpt ? (
             '...'
           ) : (
-            <Link href={link(it.page)}>
-              <a className={it.page === current ? 'active' : null}>{it.page}</a>
+            <Link href={link(it.page as number)}>
+              <a className={it.page === current ? 'active' : undefined}>{it.page}</a>
             </Link>
           )}
         </li>

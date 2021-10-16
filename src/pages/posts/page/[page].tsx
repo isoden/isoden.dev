@@ -1,11 +1,11 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { Layout } from '@/components/Layout/Layout'
-import BasicMeta from '@/components/meta/BasicMeta'
-import OpenGraphMeta from '@/components/meta/OpenGraphMeta'
-import TwitterCardMeta from '@/components/meta/TwitterCardMeta'
-import PostList from '@/components/PostList'
 import config from '@/config.json'
-import { countPosts, listPostContent, PostContent } from '@/lib/posts'
+import { Layout } from '@/components/Layout/Layout'
+import { BasicMeta } from '@/components/meta/BasicMeta'
+import { OpenGraphMeta } from '@/components/meta/OpenGraphMeta'
+import { TwitterCardMeta } from '@/components/meta/TwitterCardMeta'
+import { PostList } from '@/components/PostList'
+import { countPosts, listPosts, PostContent } from '@/lib/posts'
 import { listTags, TagContent } from '@/lib/tags'
 
 type Props = {
@@ -33,8 +33,8 @@ export default function Page({ posts, tags, pagination, page }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const page = parseInt(params.page as string)
-  const posts = await listPostContent(page, config.posts_per_page)
+  const page = parseInt(params?.page as string, 10)
+  const posts = await listPosts({ page, limit: config.posts_per_page })
   const tags = await listTags()
   const pagination = {
     current: page,
