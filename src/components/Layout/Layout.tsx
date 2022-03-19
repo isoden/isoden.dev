@@ -12,10 +12,6 @@ export const Layout: React.FC = ({ children }) => {
       <Head>
         <title>{meta.title}</title>
         <meta name="theme-color" content="#c36" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap&text=ISODENDEV"
-          rel="stylesheet"
-        />
       </Head>
 
       <SiteHeader />

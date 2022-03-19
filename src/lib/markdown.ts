@@ -1,5 +1,5 @@
 import Prism from 'prismjs'
-import marked from 'marked'
+import { marked } from 'marked'
 
 import loadLanguages from 'prismjs/components/index'
 
@@ -9,8 +9,7 @@ class CustomRenderer extends marked.Renderer {
   /**
    * override {@link https://github.com/markedjs/marked/blob/d571894d98465660adc86642358cade7266ca999/src/Renderer.js#L15-L39}
    */
-  code(...args: any[]) {
-    // @ts-expect-error
+  code(...args: Parameters<typeof marked.Renderer.prototype.code>) {
     const rendered = super.code(...args)
 
     // add `language-` class to root <pre /> element
