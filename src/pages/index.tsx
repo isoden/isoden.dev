@@ -18,19 +18,20 @@ export default function Index({ posts }: Props) {
       <BasicMeta url="/" />
       <OpenGraphMeta url="/" />
       <TwitterCardMeta url="/" />
-
-      <h2>最新の投稿</h2>
+      <main>
+        <p>🚧 工事中</p>
+      </main>
+      {/* <h2>最新の投稿</h2>
 
       <ul>
-        {posts.map(post => (
+        {posts.map((post) => (
           <li key={post.slug}>
             <Link href={`/posts/${post.slug}`}>
               <a> {post.title}</a>
             </Link>
           </li>
         ))}
-      </ul>
-
+      </ul> */}
       {/* <div>
         <Link href="/posts">
           <a>投稿一覧</a>

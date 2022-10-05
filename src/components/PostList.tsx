@@ -28,7 +28,7 @@ export function PostList({ posts, tags, pagination }: Props) {
         <Pagination
           current={pagination.current}
           pages={pagination.pages}
-          link={page => (page === 1 ? '/posts' : `/posts/page/${page}`)}
+          link={(page) => (page === 1 ? '/posts' : `/posts/page/${page}`)}
         />
       </div>
       <ul>

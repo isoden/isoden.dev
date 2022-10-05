@@ -14,7 +14,7 @@ import { getPost, listPosts, PostContent } from '@/lib/posts'
 type Props = PostContent
 
 export default function Index({ title, date, slug, tags = [], content }: Props) {
-  const keywords = tags.map(it => getTag(it).name)
+  const keywords = tags.map((it) => getTag(it).name)
   const description = ''
 
   return (
@@ -62,7 +62,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await listPosts()
 
   return {
-    paths: posts.map(post => ({
+    paths: posts.map((post) => ({
       params: {
         slug: post.slug,
       },

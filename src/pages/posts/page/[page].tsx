@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const pages = Math.ceil((await countPosts()) / config.posts_per_page)
-  const paths = Array.from(Array(pages - 1).keys()).map(it => ({
+  const paths = Array.from(Array(pages - 1).keys()).map((it) => ({
     params: { page: (it + 2).toString() },
   }))
 

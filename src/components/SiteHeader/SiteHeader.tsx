@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 type Props = {}
 
-export const SiteHeader = React.memo(function SiteHeader({  }: Props) {
+export const SiteHeader = React.memo(function SiteHeader({}: Props) {
   return (
     <header>
       <h1>

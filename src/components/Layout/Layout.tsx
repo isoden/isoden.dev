@@ -2,7 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import { SiteHeader } from '@/components/SiteHeader/SiteHeader'
 
-export const Layout: React.FC = ({ children }) => {
+export const Layout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const meta = {
     title: 'isoden.dev',
   }

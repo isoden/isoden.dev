@@ -26,11 +26,11 @@ const fetchPostContent = (() => {
     const filenames = await fs.readdir(postsDirectory)
     const allPostsData = await Promise.all(
       filenames
-        .filter(it => it.endsWith('.md'))
-        .map(async filename => {
+        .filter((it) => it.endsWith('.md'))
+        .map(async (filename) => {
           const { content, data } = matter(await fs.readFile(path.join(postsDirectory, filename), 'utf8'), {
             engines: {
-              yaml: s => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object,
+              yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object,
             },
           })
 
@@ -59,7 +59,7 @@ const fetchPostContent = (() => {
 export async function getPost(slug: string): Promise<PostContent> {
   const posts = await fetchPostContent()
 
-  const post = posts.find(post => post.slug === slug)
+  const post = posts.find((post) => post.slug === slug)
 
   if (post === undefined) {
     throw new Error(`Not found. (slug = ${slug})`)
@@ -71,7 +71,7 @@ export async function getPost(slug: string): Promise<PostContent> {
 export async function countPosts({ tag }: { tag?: string } = {}): Promise<number> {
   const posts = await fetchPostContent()
 
-  return posts.filter(it => !tag || (it.tags && it.tags.includes(tag))).length
+  return posts.filter((it) => !tag || (it.tags && it.tags.includes(tag))).length
 }
 
 export async function listPosts({
@@ -85,5 +85,5 @@ export async function listPosts({
 } = {}): Promise<PostContent[]> {
   const posts = await fetchPostContent()
 
-  return posts.filter(it => !tag || (it.tags && it.tags.includes(tag))).slice((page - 1) * limit, page * limit)
+  return posts.filter((it) => !tag || (it.tags && it.tags.includes(tag))).slice((page - 1) * limit, page * limit)
 }

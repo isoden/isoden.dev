@@ -62,21 +62,23 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = (await Promise.all(
-    listTags().map(async tag => {
-      const pages = Math.ceil((await countPosts({ tag: tag.slug })) / config.posts_per_page)
+  const paths = (
+    await Promise.all(
+      listTags().map(async (tag) => {
+        const pages = Math.ceil((await countPosts({ tag: tag.slug })) / config.posts_per_page)
 
-      return Array.from(Array(pages).keys()).map(page =>
-        page === 0
-          ? {
-              params: { slug: [tag.slug] },
-            }
-          : {
-              params: { slug: [tag.slug, (page + 1).toString()] },
-            },
-      )
-    }),
-  )).flat()
+        return Array.from(Array(pages).keys()).map((page) =>
+          page === 0
+            ? {
+                params: { slug: [tag.slug] },
+              }
+            : {
+                params: { slug: [tag.slug, (page + 1).toString()] },
+              },
+        )
+      }),
+    )
+  ).flat()
 
   return {
     paths,
