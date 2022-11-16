@@ -17,9 +17,7 @@ export default function Index({ posts }: Props) {
         <ul>
           {posts.map((post) => (
             <li key={post.slug}>
-              <Link href={`/posts/${post.slug}`}>
-                <a>{post.title}</a>
-              </Link>
+              <Link href={`/posts/${post.slug}`}>{post.title}</Link>
               <PostMeta date={post.date} tags={post.tags} />
             </li>
           ))}
