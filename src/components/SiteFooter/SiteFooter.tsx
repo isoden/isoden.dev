@@ -5,6 +5,7 @@ export const SiteFooter = memo(function SiteFooter() {
     <footer>
       <small>
         <a
+          className="color-primary"
           href="https://creativecommons.org/licenses/by-sa/4.0/deed.ja"
           target="_blank"
         >

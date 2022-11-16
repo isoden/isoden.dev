@@ -13,11 +13,15 @@ export default function Index({ posts }: Props) {
   return (
     <Layout>
       <main>
-        <h2>投稿一覧</h2>
+        <h1 className="text-lg">投稿一覧</h1>
         <ul>
           {posts.map((post) => (
             <li key={post.slug}>
-              <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+              <h2 className="text-md">
+                <Link href={`/posts/${post.slug}`} className="color-primary">
+                  {post.title}
+                </Link>
+              </h2>
               <PostMeta date={post.date} tags={post.tags} />
             </li>
           ))}

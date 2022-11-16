@@ -9,27 +9,31 @@ type Props = {
 
 export function PostMeta({ date, tags }: Props) {
   return (
-    <dl className="flex flex-wrap text-sm">
-      <dt>
-        <span className="sr-only">公開日</span>
-        <span role="img" aria-hidden="true">
-          📅
-        </span>
-      </dt>
-      <dd>
-        <FormatDate date={parseISO(date)} />
-      </dd>
-      <dt className="ml-sm">
-        <span className="sr-only">タグ</span>
-        <span role="img" aria-hidden="true">
-          🏷
-        </span>
-      </dt>
-      {tags?.map((tag) => {
-        const t = getTag(tag)
+    <dl className="flex flex-wrap text-sm gap-sm">
+      <div className="flex gap-xs">
+        <dt>
+          <span className="sr-only">公開日</span>
+          <span role="img" aria-hidden="true">
+            📅
+          </span>
+        </dt>
+        <dd>
+          <FormatDate date={parseISO(date)} />
+        </dd>
+      </div>
+      <div className="flex gap-xs">
+        <dt>
+          <span className="sr-only">タグ</span>
+          <span role="img" aria-hidden="true">
+            🏷
+          </span>
+        </dt>
+        {tags?.map((tag) => {
+          const t = getTag(tag)
 
-        return <dd key={t.slug}>{t.name}</dd>
-      })}
+          return <dd key={t.slug}>{t.name}</dd>
+        })}
+      </div>
     </dl>
   )
 }

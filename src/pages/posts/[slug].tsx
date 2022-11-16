@@ -13,13 +13,17 @@ export default function Index({ title, date, slug, tags, content }: Props) {
 
       <article>
         <header>
-          <h2>{title}</h2>
+          <h1 className="text-lg">{title}</h1>
           <PostMeta date={date} tags={tags} />
         </header>
 
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <div
+          className="post-content"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
 
         <a
+          className="color-primary"
           href={`https://github.com/isoden/isoden.dev/edit/master/content/posts/${slug}.md`}
         >
           Send pull request via GitHub.
