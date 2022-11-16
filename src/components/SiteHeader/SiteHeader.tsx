@@ -1,14 +1,12 @@
-import React from 'react'
+import { memo } from 'react'
 import Link from 'next/link'
 
-type Props = {}
-
-export const SiteHeader = React.memo(function SiteHeader({}: Props) {
+export const SiteHeader = memo(function SiteHeader() {
   return (
     <header>
       <h1>
         <Link href="/">
-          <a className="font-logo text-xl color-current no-underline uppercase">
+          <a className="text-xl color-current no-underline hover:underline decoration-1">
             isoden<span className="color-primary">.</span>dev
           </a>
         </Link>

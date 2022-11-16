@@ -43,6 +43,16 @@ body {
 ul,
 ol {
   padding-left: 0;
+  list-style: none;
+}
+
+dl {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+dt, dd {
+  margin-left: 0;
 }
 
 /** Layout */
@@ -72,6 +82,22 @@ ol {
   display: inline-block;
 }
 
+.flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.ml-sm {
+  margin-left: var(--text-sm);  
+}
+
+.block {
+  display: block;
+}
+
 /** Fonts */
 
 .text-sm {
@@ -86,18 +112,30 @@ ol {
   font-size: var(--text-xl);
 }
 
-.font-logo {
-  font-family: 'Open Sans', sans-serif;
-}
-
 .font-bold {
   font-weight: bold;
+}
+
+.hover\:underline:hover {
+  text-decoration: underline;
 }
 
 .no-underline {
   text-decoration: none;
 }
 
-.uppercase {
-  text-transform: uppercase;
+.decoration-1 {
+  text-decoration-thickness: 1px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

@@ -1,22 +1,22 @@
-import React from 'react'
+import type React from 'react'
 import Head from 'next/head'
 import { SiteHeader } from '@/components/SiteHeader/SiteHeader'
+import { SiteFooter } from '@/components//SiteFooter/SiteFooter'
 
-export const Layout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  const meta = {
-    title: 'isoden.dev',
-  }
+import config from '@/config.json'
 
+export const Layout: React.FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => {
   return (
     <div className="container mx-auto">
       <Head>
-        <title>{meta.title}</title>
+        <title>{config.site_title}</title>
         <meta name="theme-color" content="#c36" />
       </Head>
-
       <SiteHeader />
-
       {children}
+      <SiteFooter />
     </div>
   )
 }
