@@ -156,13 +156,16 @@ const isLoggedIn = !!Astro.locals.user;
 							<li><a href="/">Home</a></li>
 							<li><a href="/posts">All Posts</a></li>
 							{
-								pages.slice(0, 3).map((page) => (
-									<li>
-										<a href={`/pages/${page.data.slug || page.id}`}>
-											{page.data.title}
-										</a>
-									</li>
-								))
+								pages
+									.filter((page) => (page.data.slug || page.id) !== "resume")
+									.slice(0, 3)
+									.map((page) => (
+										<li>
+											<a href={`/pages/${page.data.slug || page.id}`}>
+												{page.data.title}
+											</a>
+										</li>
+									))
 							}
 						</ul>
 					</div>
