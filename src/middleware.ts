@@ -1,7 +1,7 @@
 import { defineMiddleware } from "astro:middleware";
 import { env } from "cloudflare:workers";
 
-const PROTECTED_PATHS = [/^\/resume(\/|$)/];
+const PROTECTED_PATHS = [/^\/pages\/resume(\/|$)/];
 
 export const onRequest = defineMiddleware(async (context, next) => {
 	const needsAuth = PROTECTED_PATHS.some((re) => re.test(context.url.pathname));
