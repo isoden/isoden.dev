@@ -1,0 +1,6 @@
+@import "tailwindcss" source(none);
+
+@source "../components/**/*.{astro,ts,tsx,jsx,mdx,md}";
+@source "../layouts/**/*.{astro,ts,tsx,jsx}";
+@source "../pages/**/*.{astro,ts,tsx,jsx,mdx,md}";
+@source not "../pages/resume/**/*";
