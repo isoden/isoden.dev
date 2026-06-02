@@ -2,33 +2,110 @@
 
 @source "../pages/pages/resume/**/*.{astro,md}";
 
+@theme {
+  --font-serif: "MFW-PRyuminPr6N-Medium", serif;
+  --default-font-family: var(--font-serif);
+
+  /* Vertical rhythm: 28px baseline */
+  --rhythm-half: calc(var(--rhythm-1) / 2);
+  --rhythm-1: 1.75rem;
+  --rhythm-2: calc(var(--rhythm-1) * 2);
+  --rhythm-3: calc(var(--rhythm-1) * 3);
+  --rhythm-4: calc(var(--rhythm-1) * 4);
+
+  /* Type scale — each size pairs with a line-height that is a multiple of rhythm */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-md: 1.125rem; /* 18px */
+  --text-lg: 1.375rem; /* 22px */
+  --text-xl: 1.75rem; /* 28px */
+  --text-2xl: 2.25rem; /* 36px */
+
+  --color-ink: var(--color-zinc-800);
+  --color-muted: var(--color-zinc-500);
+  --color-link: var(--color-blue-900);
+  --color-link-ring: oklch(from var(--color-blue-900) l c h / 0.6);
+}
+
 @layer base {
   :root {
     color-scheme: light;
-    --font-serif: "Noto Serif JP", serif;
-    --default-font-family: var(--font-serif);
   }
-  
+
   body {
     text-autospace: normal;
-    line-height: 1.75;
-    color: var(--color-zinc-800);
+    font-size: var(--text-base);
+    line-height: var(--rhythm-1);
+    color: var(--color-ink);
     margin: 0 auto;
-    padding: calc(var(--spacing) * 12) calc(var(--spacing) * 4);
+    padding: var(--rhythm-3) calc(var(--rhythm-1) * 1.5);
     max-width: 880px;
+    font-feature-settings: "palt";
   }
 
-  a {
-    color: var(--color-blue-600);
+  /* Override Tailwind's .text-sm so it snaps to the rhythm baseline */
+  .text-sm {
+    font-size: var(--text-sm);
+    line-height: var(--rhythm-1);
+  }
+}
+
+@layer components {
+  .link {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    @apply text-(--color-link) underline;
 
     &:hover {
-      text-decoration: none;
+      @apply no-underline;
     }
 
     &:focus-visible {
-      outline: 2px solid var(--color-blue-600);
-      outline-offset: 2px;
-      border-radius: 4px;
+      outline: 2px solid var(--color-link-ring);
+      outline-offset: 4px;
+      border-radius: 1px;
     }
+  }
+  
+  /* Two-column header: title (1fr) + meta (auto), baseline-aligned, collapses under sm */
+  .title-header {
+    @apply grid grid-cols-[1fr_auto] max-sm:grid-cols-1 items-baseline gap-x-(--rhythm-1);
+  }
+
+  .h1 {
+    @apply text-md leading-(--rhythm-1) font-semibold;
+    letter-spacing: 0.04em;
+  }
+
+  .h2 {
+    @apply text-xl leading-(--rhythm-2) font-semibold;
+    letter-spacing: 0.04em;
+  }
+
+  .h3 {
+    @apply text-lg leading-(--rhythm-1) font-semibold;
+  }
+
+  /* dl row: 8rem label column + 1fr value column, collapses under sm */
+  .meta-row {
+    @apply grid grid-cols-[8rem_1fr] max-sm:grid-cols-1 gap-x-(--rhythm-1);
+  }
+
+  .meta-row > dt {
+    color: var(--color-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* Em-dash bullet list */
+  .other > li {
+    padding-inline-start: 1.25em;
+    position: relative;
+  }
+
+  .other > li::before {
+    content: "—";
+    position: absolute;
+    inset-inline-start: 0;
+    color: var(--color-muted);
   }
 }
