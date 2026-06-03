@@ -28,6 +28,7 @@ Agent skills are in `.agents/skills/`. Load them when working on specific tasks:
 - **building-emdash-site** -- Querying content, rendering Portable Text, schema design, seed files, site features (menus, widgets, search, SEO, comments, bylines). Start here.
 - **creating-plugins** -- Building EmDash plugins with hooks, storage, admin UI, API routes, and Portable Text block types.
 - **emdash-cli** -- CLI commands for content management, seeding, type generation, and visual editing flow.
+- **hiring-review** -- 職務経歴書・レジュメ (`src/pages/pages/resume/`) を採用担当者目線（EM + リクルーター）で率直・辛口にレビューする。スキル欄・自己PR・プロジェクト記述のフィードバックを求められた時に使う。
 
 ## Rules
 
