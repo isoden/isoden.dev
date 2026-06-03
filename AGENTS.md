@@ -37,3 +37,13 @@ Agent skills are in `.agents/skills/`. Load them when working on specific tasks:
 - `entry.id` is the slug (for URLs). `entry.data.id` is the database ULID (for API calls like `getEntryTerms`).
 - Always call `Astro.cache.set(cacheHint)` on pages that query content.
 - Taxonomy names in queries must match the seed's `"name"` field exactly (e.g., `"category"` not `"categories"`).
+
+## Gotchas
+
+### Dark mode body background (EmDash kumo override)
+
+`src/styles/theme.css` ends with an `html body { background: var(--color-bg); color: var(--color-text) }` rule. **Do not remove it.**
+
+- **Why:** EmDash (>= 0.16) injects an unlayered global `body { background-color: var(--color-kumo-elevated); color: var(--text-color-kumo-default) }`. Those kumo tokens use CSS `light-dark()`, which resolves off the element's `color-scheme` -- but this site's dark mode is driven by a `.dark` class on `:root` (it never sets `color-scheme`). So `light-dark()` always picks the light value and the body turns **white in dark mode**, and EmDash's unlayered rule also overrides `Base.astro`'s `@layer base` body styles.
+- **Fix:** The `html body` rule (specificity 0,0,2) outranks EmDash's `body` (0,0,1), reclaiming body bg/text for the site's own `--color-bg`/`--color-text` in both modes. No `!important`, no layer-order dependency.
+- Setting `color-scheme: dark` does **not** fix it (EmDash's `light-dark()` tokens don't respond here). It's safe to drop the override only if a future EmDash version stops force-theming the frontend `body`.

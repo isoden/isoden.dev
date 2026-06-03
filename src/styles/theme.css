@@ -106,3 +106,19 @@
 	--tag-padding-y: 2px;    vertical padding on tag pills
 	*/
 }
+
+/*
+  EmDash (>= 0.16) injects an unlayered global rule
+  `body { background-color: var(--color-kumo-elevated); color: var(--text-color-kumo-default) }`.
+  Its kumo tokens use `light-dark()`, which keys off `color-scheme` -- not this
+  site's class-based (`.dark`) theming -- so in dark mode they resolve to the
+  light value and the body turns white. Because that EmDash rule is unlayered,
+  it also beats Base.astro's `@layer base` body styles.
+
+  Reclaim the body here with `html body` (specificity 0,0,2 > EmDash's 0,0,1) so
+  the site's own `--color-bg` / `--color-text` always win, in both modes.
+*/
+html body {
+	background: var(--color-bg);
+	color: var(--color-text);
+}
