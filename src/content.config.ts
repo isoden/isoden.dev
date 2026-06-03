@@ -59,7 +59,12 @@ const ResumeMetaSchema = z.object({
       value: z.string(),
     }),
   ),
-  other: z.array(z.string()),
+  other: z.array(
+    z.object({
+      title: z.string(),
+      url: z.url(),
+    }),
+  ),
 });
 
 export type ResumeMetaSchema = z.infer<typeof ResumeMetaSchema>;
