@@ -23,7 +23,7 @@ const ProjectSchema = z.object({
     .array(
       z.object({
         title: z.string(),
-        url: z.url(),
+        url: z.url().optional(),
       }),
     )
     .optional(),
@@ -33,6 +33,9 @@ const ProjectSchema = z.object({
 
   // 言語・ツール
   techStack: z.array(z.string()),
+
+  // レジュメ非表示フラグ
+  hidden: z.boolean().optional().default(false),
 });
 
 export type ProjectSchema = z.infer<typeof ProjectSchema>;
