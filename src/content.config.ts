@@ -19,7 +19,14 @@ const ProjectSchema = z.object({
   summary: z.string(),
 
   // Website URLs
-  websites: z.array(z.url()).optional(),
+  websites: z
+    .array(
+      z.object({
+        title: z.string(),
+        url: z.url(),
+      }),
+    )
+    .optional(),
 
   // チーム規模
   teamSize: z.string(),

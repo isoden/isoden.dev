@@ -21,7 +21,6 @@
   --text-xl: 1.75rem; /* 28px */
   --text-2xl: 2.25rem; /* 36px */
 
-  --color-ink: var(--color-zinc-800);
   --color-muted: var(--color-zinc-500);
   --color-link: var(--color-blue-900);
   --color-link-ring: oklch(from var(--color-blue-900) l c h / 0.6);
@@ -93,6 +92,7 @@
 
   .meta-row > dt {
     color: var(--color-muted);
+    text-wrap: balance;
     letter-spacing: 0.04em;
   }
 
