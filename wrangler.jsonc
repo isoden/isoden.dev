@@ -10,13 +10,10 @@
 		{
 			"binding": "DB",
 			"database_name": "isoden-dev",
-			// Run `wrangler d1 create my-emdash-site` and paste the real ID here for deploy
 			"database_id": "d63f84e3-613d-4f52-b554-29f637f0577e",
-		},
-		{
-			"binding": "isoden_dev",
-			"database_name": "isoden-dev",
-			"database_id": "d63f84e3-613d-4f52-b554-29f637f0577e",
+			// `remote` only takes effect in local dev when the adapter's
+			// remoteBindings master switch is on (EMDASH_REMOTE=1). It is
+			// ignored at deploy time and when running plain `npm run dev`.
 			"remote": true,
 		},
 	],
@@ -24,6 +21,7 @@
 		{
 			"binding": "MEDIA",
 			"bucket_name": "isoden-dev-media",
+			"remote": true,
 		},
 	],
 	// Worker Loader for plugin sandboxing

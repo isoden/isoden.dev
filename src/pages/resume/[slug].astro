@@ -1,0 +1,126 @@
+---
+// Internal render route for the `resumes` collection.
+// Reachable only via the /_/{slug} rewrite in src/middleware.ts; direct hits
+// to /resume/* are 404'd there. (Astro excludes underscore-prefixed dirs like
+// /_/ from routing, so the public /_/ path can't be a real file route.)
+import { getEmDashEntry, decodeSlug } from "emdash";
+import Base from "../../layouts/ResumeBase.astro";
+
+const slug = decodeSlug(Astro.params.slug);
+
+if (!slug) {
+  return Astro.redirect("/404");
+}
+
+const { entry: page, cacheHint } = await getEmDashEntry("resumes", slug);
+
+if (!page) {
+  return Astro.redirect("/404");
+}
+
+const experiences = page.data.experiences as {
+  title: string;
+  period: { start: string; end: string | null };
+  summary: string;
+  teamSize: number;
+}[];
+
+function formatPeriod(start: string, end: string | null) {
+  const startFormatted = formatDate(start);
+  const endFormatted = end ? formatDate(end) : "現在";
+
+  return `${startFormatted} 〜 ${endFormatted}`;
+
+  function formatDate(date: string) {
+    const [year, month] = date.split(/-0?/);
+    return `${year}年${month}月`;
+  }
+}
+
+Astro.cache.set(cacheHint);
+---
+
+<Base>
+  <header class="title-header">
+    <h1 class="h1">職務経歴書</h1>
+    <p
+      class="flex flex-col items-end max-sm:items-start text-end max-sm:text-start"
+    >
+      <span class="text-md">礒田 優</span>
+      <span class="text-muted">2026年6月現在</span>
+    </p>
+  </header>
+
+  <main class="flex flex-col gap-y-(--rhythm-3) mt-(--rhythm-4)">
+    <section class="space-y-(--rhythm-1)">
+      <h2 class="h2">職務経歴概要</h2>
+      <div class="prose">
+        {page.data.summary}
+      </div>
+    </section>
+
+    <section class="space-y-(--rhythm-1)">
+      <h2 class="h2">職務経歴</h2>
+      <p class="text-sm text-muted">各社在籍中に携わった案件より抜粋。</p>
+      <div class="space-y-(--rhythm-4)">
+        {
+          experiences.map((project) => (
+            <article class="space-y-(--rhythm-1)">
+              <header class="title-header">
+                <h3 class="h3">{project.title}</h3>
+                <p class="text-sm text-muted tabular-nums">
+                  {formatPeriod(project.period_start, project.period_end)}
+                </p>
+              </header>
+
+              <p class="font-semibold">{project.summary}</p>
+
+              <div class="prose" set:html={project.content} />
+
+              <dl class="grid gap-y-(--rhythm-half)">
+                <div class="meta-row">
+                  <dt>チーム規模</dt>
+                  <dd>{project.team_size}</dd>
+                </div>
+                <div class="meta-row">
+                  <dt>使用技術</dt>
+                  <dd>{project.tech_stack}</dd>
+                </div>
+                {project.websites && (
+                  <div class="meta-row">
+                    <dt>Webサイト</dt>
+                    <dd>
+                      <ul
+                        class="flex flex-col break-all"
+                        set:html={project.websites}
+                      />
+                    </dd>
+                  </div>
+                )}
+              </dl>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="space-y-(--rhythm-1)">
+      <h2 class="h2">自己PR</h2>
+      <div class="prose">
+        {page.data.strengths}
+      </div>
+    </section>
+
+    <section class="space-y-(--rhythm-1)">
+      <h2 class="h2">スキル</h2>
+      <dl class="grid gap-y-(--rhythm-half)" set:html={page.data.skills} />
+    </section>
+
+    <section class="space-y-(--rhythm-1)">
+      <h2 class="h2">その他</h2>
+      <ul class="other" set:html={page.data.other} />
+    </section>
+
+    <p class="text-end mt-(--rhythm-4)">以上</p>
+  </main>
+</Base>

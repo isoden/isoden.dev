@@ -1,6 +1,6 @@
 @import "tailwindcss" source(none);
 
-@source "../pages/pages/resume/**/*.{astro,md}";
+@source "../pages/resume/**/*.{astro}";
 @source "../layouts/ResumeBase.astro";
 
 @theme {
@@ -87,6 +87,10 @@
 
   .resume .h3 {
     @apply text-lg leading-(--rhythm-1) font-semibold;
+  }
+
+  .resume .prose {
+    @apply whitespace-pre-wrap;
   }
 
   /* dl row: 8rem label column + 1fr value column, collapses under sm */

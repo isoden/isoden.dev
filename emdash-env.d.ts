@@ -31,9 +31,25 @@ export interface Post {
   bylines?: ContentBylineCredit[];
 }
 
+export interface Resume {
+  id: string;
+  slug: string | null;
+  status: string;
+  summary?: string;
+  experiences?: unknown;
+  strengths?: string;
+  skills?: string;
+  other?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
 declare module "emdash" {
   interface EmDashCollections {
     pages: Page;
     posts: Post;
+    resumes: Resume;
   }
 }
