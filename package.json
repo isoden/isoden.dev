@@ -31,6 +31,9 @@
     "tailwindcss": "^4.3.3",
     "wrangler": "^4.113.0"
   },
+  "overrides": {
+    "@cloudflare/vite-plugin": "^1.46.0"
+  },
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",
