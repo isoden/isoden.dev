@@ -6,6 +6,13 @@
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
+	// Drives EmDash scheduled publishing and plugin cron on Cloudflare Workers
+	// (EmDash >= 0.19; see src/worker.ts). Without it neither runs in production.
+	"triggers": {
+		"crons": [
+			"* * * * *",
+		],
+	},
 	"d1_databases": [
 		{
 			"binding": "DB",
