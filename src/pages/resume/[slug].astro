@@ -18,14 +18,25 @@ if (!page) {
   return Astro.redirect("/404");
 }
 
+// `experiences` は repeater フィールド (JSON カラム)。EmDash の型生成
+// (emdash-env.d.ts) は repeater のサブフィールドまでは展開しないため、ここで
+// 手書きの型を当てる。キー名は admin UI で定義されたサブフィールドの slug
+// そのままで、すべて snake_case・値は文字列。
+// 2026-08-08 修正: 型注釈が実データと乖離し ts(2339) を7件出していたため、
+// 本番 D1 の ec_resumes.experiences を実測して合わせた。
+// period_end は「現在も継続中」を空文字で表す (null ではない)。
 const experiences = page.data.experiences as {
   title: string;
-  period: { start: string; end: string | null };
   summary: string;
-  teamSize: number;
+  period_start: string;
+  period_end: string;
+  tech_stack: string;
+  team_size: string;
+  content: string;
+  websites: string;
 }[];
 
-function formatPeriod(start: string, end: string | null) {
+function formatPeriod(start: string, end: string) {
   const startFormatted = formatDate(start);
   const endFormatted = end ? formatDate(end) : "現在";
 
