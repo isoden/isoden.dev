@@ -17,6 +17,7 @@ import {
 import Base from "../../layouts/Base.astro";
 import PostCard from "../../components/PostCard.astro";
 import { resolveBlogSiteIdentity } from "../../utils/site-identity";
+import { getPostAgeNotice } from "../../utils/post-age";
 
 const slug = decodeSlug(Astro.params.slug);
 
@@ -94,6 +95,11 @@ const publishDate =
     month: "long",
     day: "numeric",
   }) ?? null;
+
+// 古い記事である旨の注釈。レンダリング時刻で判定するため、cacheHint による
+// キャッシュが長く効いていると閾値をまたいだ直後は旧表示が残りうる。
+// 切り替わりは記事あたり年 1 回なので、あえてキャッシュ設定は変えていない。
+const ageNotice = getPostAgeNotice(post.data.publishedAt);
 ---
 
 <Base
@@ -207,6 +213,7 @@ const publishDate =
             }
           </div>
           <h1 class="article-title" {...post.edit.title}>{post.data.title}</h1>
+          {ageNotice && <p class="article-age-notice">{ageNotice}</p>}
           {
             post.data.excerpt && (
               <p class="article-excerpt" {...post.edit.excerpt}>
@@ -487,6 +494,18 @@ const publishDate =
     line-height: var(--leading-tight);
     letter-spacing: var(--tracking-tight);
     margin-bottom: var(--spacing-4);
+  }
+
+  /* 本文中の blockquote と同じ左ボーダー意匠に揃え、警告バナーとして浮かないようにする */
+  .article-age-notice {
+    margin-bottom: var(--spacing-4);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-left: 3px solid var(--color-border);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background: var(--color-bg-subtle);
+    font-size: var(--font-size-sm);
+    line-height: var(--leading-normal);
+    color: var(--color-text-secondary);
   }
 
   .article-excerpt {
