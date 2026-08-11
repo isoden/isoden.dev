@@ -489,7 +489,7 @@ const ageNotice = getPostAgeNotice(post.data.publishedAt);
   }
 
   .article-title {
-    font-size: clamp(2rem, 5vw, var(--font-size-5xl));
+    font-size: var(--font-size-title);
     font-weight: 700;
     line-height: var(--leading-tight);
     letter-spacing: var(--tracking-tight);
@@ -963,10 +963,6 @@ const ageNotice = getPostAgeNotice(post.data.publishedAt);
   }
 
   @media (max-width: 600px) {
-    .article-title {
-      font-size: var(--font-size-3xl);
-    }
-
     .more-grid {
       grid-template-columns: 1fr;
     }

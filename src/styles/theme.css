@@ -40,6 +40,9 @@
 	--font-size-3xl: 2rem;
 	--font-size-4xl: 2.5rem;
 	--font-size-5xl: 3.5rem;
+
+	大見出し（記事 / ページ / 注目記事のタイトル）共通。流体区間は 480-800px
+	--font-size-title: clamp(var(--font-size-2xl), 5vw, var(--font-size-4xl));
 	*/
 
 	/* --- Line heights ---

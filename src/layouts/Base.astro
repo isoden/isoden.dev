@@ -443,6 +443,16 @@ const isLoggedIn = !!Astro.locals.user;
           --font-size-4xl: 2.5rem;
           --font-size-5xl: 3.5rem;
 
+          /*
+            ページ最上位の大見出し（記事 / ページ / 注目記事のタイトル）共通。
+            流体区間は 480-800px で、その外は MIN / MAX に張り付く。
+          */
+          --font-size-title: clamp(
+            var(--font-size-2xl),
+            5vw,
+            var(--font-size-4xl)
+          );
+
           /* Line heights */
           --leading-tight: 1.15;
           --leading-snug: 1.3;
