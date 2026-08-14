@@ -3,6 +3,16 @@
     "relation": ["delegate_permission/common.get_login_creds"],
     "target": {
       "namespace": "android_app",
+      "package_name": "dev.isoden.yaworkoutapp",
+      "sha256_cert_fingerprints": [
+        "AA:44:38:65:CE:0E:C9:91:14:A6:BB:38:80:40:17:3D:CA:84:3E:78:A1:C3:B4:7A:57:18:3C:F4:EF:18:1E:1F"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.get_login_creds"],
+    "target": {
+      "namespace": "android_app",
       "package_name": "dev.isoden.yaworkoutapp.dev",
       "sha256_cert_fingerprints": [
         "EA:84:EB:A5:AE:4B:C3:47:4A:C2:8F:59:91:B4:19:F4:8F:44:F4:17:45:F4:C1:D7:08:39:9A:CC:C0:66:76:FB"
