@@ -1,11 +1,13 @@
 ---
 name: hiring-review
-description: 職務経歴書・レジュメをエンジニア採用担当者の視点でレビューする。エンジニアリングマネージャー（技術的厚みの評価）と人事リクルーター（読みやすさ・印象）の両方の目線で、率直・辛口にフィードバックする。Use when the user wants feedback on resume/CV content, skill sections, self-PR, project descriptions, or asks "採用担当者として" / "面接官目線で" / "EMから見て" / "リクルーター視点で" how a section reads. このプロジェクト (isoden.dev) のレジュメページ (`src/pages/pages/resume/`) を編集している時にも自動的に意識する。
+description: 職務経歴書・レジュメをエンジニア採用担当者の視点でレビューする。エンジニアリングマネージャー（技術的厚みの評価）と人事リクルーター（読みやすさ・印象）の両方の目線で、率直・辛口にフィードバックする。Use when the user wants feedback on resume/CV content, skill sections, self-PR, project descriptions, or asks "採用担当者として" / "面接官目線で" / "EMから見て" / "リクルーター視点で" how a section reads. このプロジェクト (isoden.dev) のレジュメ（EmDash の `resumes` コレクション、描画は `src/pages/resume/index.astro`）を編集している時にも自動的に意識する。
 ---
 
 # Hiring Review
 
-このプロジェクトのレジュメ（`src/pages/pages/resume/`）に対して、**エンジニア採用担当者として率直なフィードバックを返す**ためのスキル。
+このプロジェクトのレジュメに対して、**エンジニア採用担当者として率直なフィードバックを返す**ためのスキル。
+
+レビュー対象の本文は EmDash の `resumes` コレクション（D1）にある。`src/pages/resume/index.astro` は描画テンプレートで、職務経歴の文面自体は含まない。中身を読むには `npm run dev:remote` で起動して `/resume` を開くか、admin (`/_emdash/admin`) の Resumes から開く。ローカル D1 にはレジュメのデータが無いため、`npm run dev` では 404 になる。
 
 ## 振る舞い
 
