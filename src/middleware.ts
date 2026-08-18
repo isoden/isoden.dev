@@ -1,39 +1,11 @@
 import { defineMiddleware } from "astro:middleware";
 import { env } from "cloudflare:workers";
 
-const PROTECTED_PATHS = [/^\/_\/resume(\/|$)/];
-
-// The `resumes` collection uses urlPattern "/_/{slug}", but Astro excludes
-// underscore-prefixed dirs from routing, so "/_/..." can't be a file route.
-// We render it from the real /resume/[slug] route and rewrite the public
-// "/_/" path onto it (URL stays "/_/..."). Direct hits to the internal
-// /resume/ path 404 so "/_/" is the only entry point.
-const PUBLIC_RESUME_PREFIX = "/_/";
-const INTERNAL_RESUME_PREFIX = "/resume/";
+const PROTECTED_PATHS = [/^\/resume(\/|$)/];
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  const { pathname } = context.url;
-
-  // Block direct access to the internal render route. This does NOT fire for
-  // the rewrite below: next(path) rewrites without re-running this middleware.
-  if (pathname.startsWith(INTERNAL_RESUME_PREFIX)) {
-    return new Response("Not Found", { status: 404 });
-  }
-
-  // Auth is checked against the *public* path (e.g. "/_/resume") and MUST run
-  // before the rewrite below, which would otherwise `return next(...)` first
-  // and skip auth entirely.
-  const authResponse = checkBasicAuth(context, pathname);
+  const authResponse = checkBasicAuth(context, context.url.pathname);
   if (authResponse) return authResponse;
-
-  // Public "/_/{slug}" -> internal "/resume/{slug}", keeping the URL as "/_/...".
-  if (
-    pathname.startsWith(PUBLIC_RESUME_PREFIX) &&
-    pathname.length > PUBLIC_RESUME_PREFIX.length
-  ) {
-    const slug = pathname.slice(PUBLIC_RESUME_PREFIX.length);
-    return next(INTERNAL_RESUME_PREFIX + slug);
-  }
 
   return next();
 });

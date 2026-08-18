@@ -65,6 +65,64 @@
 					"searchable": true
 				}
 			]
+		},
+		{
+			"slug": "resumes",
+			"label": "Resumes",
+			"labelSingular": "Resume",
+			"supports": ["revisions"],
+			"urlPattern": "/{slug}",
+			"fields": [
+				{
+					"slug": "summary",
+					"label": "Summary",
+					"type": "text"
+				},
+				{
+					"slug": "experiences",
+					"label": "Experiences",
+					"type": "repeater",
+					"validation": {
+						"subFields": [
+							{ "slug": "title", "type": "string", "label": "title" },
+							{ "slug": "summary", "type": "string", "label": "summary" },
+							{ "slug": "period_start", "type": "datetime", "label": "period_start" },
+							{ "slug": "period_end", "type": "datetime", "label": "period_end" },
+							{ "slug": "tech_stack", "type": "string", "label": "tech_stack" },
+							{ "slug": "content", "type": "text", "label": "content" },
+							{ "slug": "websites", "type": "text", "label": "websites" },
+							{ "slug": "team_size", "type": "string", "label": "team_size" }
+						]
+					}
+				},
+				{
+					"slug": "strengths",
+					"label": "Strengths",
+					"type": "text"
+				},
+				{
+					"slug": "skills",
+					"label": "Skills",
+					"type": "repeater",
+					"validation": {
+						"subFields": [
+							{ "slug": "category", "type": "string", "label": "Category" },
+							{ "slug": "items", "type": "text", "label": "Items" }
+						]
+					}
+				},
+				{
+					"slug": "other",
+					"label": "Other",
+					"type": "repeater",
+					"validation": {
+						"subFields": [
+							{ "slug": "label", "type": "string", "label": "Label" },
+							{ "slug": "url", "type": "url", "label": "URL" }
+						]
+					}
+				}
+			]
 		}
 	],
 

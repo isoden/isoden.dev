@@ -33,9 +33,38 @@ export interface Post {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface Resume {
+  id: string;
+  slug: string | null;
+  status: string;
+  summary?: string;
+  experiences?: unknown;
+  strengths?: string;
+  skills?: unknown;
+  other?: unknown;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Work {
+  id: string;
+  slug: string | null;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
 declare module "emdash" {
   interface EmDashCollections {
     pages: Page;
     posts: Post;
+    resumes: Resume;
+    works: Work;
   }
 }

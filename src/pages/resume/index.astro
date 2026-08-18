@@ -1,18 +1,12 @@
 ---
-// Internal render route for the `resumes` collection.
-// Reachable only via the /_/{slug} rewrite in src/middleware.ts; direct hits
-// to /resume/* are 404'd there. (Astro excludes underscore-prefixed dirs like
-// /_/ from routing, so the public /_/ path can't be a real file route.)
-import { getEmDashEntry, decodeSlug } from "emdash";
+// Public route for the `resumes` collection, behind Basic auth in production
+// (src/middleware.ts).
+import { getEmDashEntry } from "emdash";
 import Base from "../../layouts/ResumeBase.astro";
 
-const slug = decodeSlug(Astro.params.slug);
-
-if (!slug) {
-  return Astro.redirect("/404");
-}
-
-const { entry: page, cacheHint } = await getEmDashEntry("resumes", slug);
+// The collection holds a single entry, so the slug is pinned here rather than
+// routed — /resume needs no dynamic segment.
+const { entry: page, cacheHint } = await getEmDashEntry("resumes", "resume");
 
 if (!page) {
   return Astro.redirect("/404");
@@ -35,6 +29,31 @@ const experiences = page.data.experiences as {
   content: string;
   websites: string;
 }[];
+
+const skills = page.data.skills as { category: string; items: string }[];
+const other = page.data.other as { label: string; url: string }[];
+
+// repeater のサブフィールドに repeater は入れられないため、案件ごとの関連サイトは
+// 「ラベル|URL」の改行区切りで 1 つの text サブフィールドに持たせている。
+// URL の無い行はリンクではない注記 (例: 社内ツールのため非公開)。
+function parseWebsites(raw: string) {
+  return (raw ?? "")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      // ラベルに | が含まれても壊れないよう最初の | だけで区切る。
+      const sep = line.indexOf("|");
+      return sep === -1
+        ? { label: line, url: "" }
+        : { label: line.slice(0, sep).trim(), url: line.slice(sep + 1).trim() };
+    });
+}
+
+const projects = experiences.map((experience) => ({
+  ...experience,
+  websites: parseWebsites(experience.websites),
+}));
 
 function formatPeriod(start: string, end: string) {
   const startFormatted = formatDate(start);
@@ -75,7 +94,7 @@ Astro.cache.set(cacheHint);
       <p class="text-sm text-muted">各社在籍中に携わった案件より抜粋。</p>
       <div class="space-y-(--rhythm-4)">
         {
-          experiences.map((project) => (
+          projects.map((project) => (
             <article class="space-y-(--rhythm-1)">
               <header class="title-header">
                 <h3 class="h3">{project.title}</h3>
@@ -97,14 +116,28 @@ Astro.cache.set(cacheHint);
                   <dt>使用技術</dt>
                   <dd>{project.tech_stack}</dd>
                 </div>
-                {project.websites && (
+                {project.websites.length > 0 && (
                   <div class="meta-row">
                     <dt>Webサイト</dt>
                     <dd>
-                      <ul
-                        class="flex flex-col break-all"
-                        set:html={project.websites}
-                      />
+                      <ul class="flex flex-col break-all">
+                        {project.websites.map((site) => (
+                          <li>
+                            {site.url ? (
+                              <a
+                                href={site.url}
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                class="link"
+                              >
+                                {site.label}
+                              </a>
+                            ) : (
+                              <span class="text-muted">{site.label}</span>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
                     </dd>
                   </div>
                 )}
@@ -124,12 +157,40 @@ Astro.cache.set(cacheHint);
 
     <section class="space-y-(--rhythm-1)">
       <h2 class="h2">スキル</h2>
-      <dl class="grid gap-y-(--rhythm-half)" set:html={page.data.skills} />
+      <dl class="grid gap-y-(--rhythm-half)">
+        {
+          skills.map((skill) => (
+            <div class="meta-row">
+              <dt>{skill.category}</dt>
+              <dd>{skill.items}</dd>
+            </div>
+          ))
+        }
+      </dl>
     </section>
 
     <section class="space-y-(--rhythm-1)">
       <h2 class="h2">その他</h2>
-      <ul class="other" set:html={page.data.other} />
+      <ul class="other">
+        {
+          other.map((link) => (
+            <li>
+              {link.url ? (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  class="link"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                link.label
+              )}
+            </li>
+          ))
+        }
+      </ul>
     </section>
 
     <p class="text-end mt-(--rhythm-4)">以上</p>
